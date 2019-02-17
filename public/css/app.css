@@ -1,0 +1,177 @@
+/** General Settings-Colors-Fonts **/
+html,
+body {
+  margin: auto !important;
+  width: 100% !important;
+  font-family: 'Roboto', 'Segoe UI', 'Helvetica Neue', apple-system, BlinkMacSystemFont, sans-serif !important;
+  font-size: 1rem !important;
+  font-weight: normal !important;
+  color: #000000 !important;
+  background-color: #FEFEFE !important;
+  scroll-behavior: smooth !important;
+  -webkit-scroll-behavior: smooth !important;
+  -moz-scroll-behavior: smooth !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -moz-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-font-smoothing: antialiased !important;
+  font-smoothing: antialiased !important;
+}
+
+a,
+a:visited,
+a:active {
+  text-decoration: none !important;
+  color: #007bff;
+  font-weight: 700 !important;
+}
+
+a:hover {
+  opacity: 0.9 !important;
+}
+
+
+/** Navbar **/
+a.navbar-brand {
+  font-weight: 700 !important;
+  color: #007bff !important;
+  text-decoration: none !important;
+  font-size: 1.35rem !important;
+}
+
+a.navbar-brand:hover {
+  text-decoration: none !important;
+  opacity: 0.8 !important;
+}
+
+/** Main Wrapper-Body **/
+#wrap {
+  margin: auto !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+#mainBody {
+  margin-top: 90px !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+/** Search Bar **/
+#searchBox {
+  width: 100% !important;
+  text-align: center !important;
+}
+
+input[type=search],
+input[type=search]:focus {
+  border: 2px solid #007bff !important;
+  border-radius: 0.25rem !important;
+  -webkit-border-radius: 0.25rem !important;
+  -moz-border-radius: 0.25rem !important;
+  box-shadow: 0px 0px 10px 0px #555555 !important;
+}
+
+button[type=submit] {
+  box-shadow: 0px 0px 10px 0px #555555 !important;
+}
+
+/** Notifications-Validation **/
+#notify {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+#notify>div {
+  opacity: 100 !important;
+}
+
+.fade:not(.show) {
+  opacity: 100 !important;
+}
+
+div.alert.in.fade.alert-danger {
+  color: #000000 !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 100 !important;
+}
+
+.hoverCard {
+  box-shadow: 0px 0px 2px 0px #222222;
+}
+
+/** Footer **/
+#footerWrap {
+  margin: auto !important;
+  width: 100% !important;
+  margin-top: 15px !important;
+  margin-bottom: 0px !important;
+  min-height: 125px !important;
+  color: #FFFFFF !important;
+  background-color: #212529 !important;
+}
+
+.footerIcon {
+  padding-right: 5px !important;
+  font-weight: normal !important;
+}
+
+a.footerIcon:hover {
+  color: #FFFFFF !important;
+  border: none !important;
+  text-decoration: none !important;
+  font-weight: normal !important;
+  opacity: 1.0 !important;
+}
+
+.footerScroll,
+.footerScroll:hover {
+  font-style: none !important;
+  font-weight: 700 !important;
+}
+
+#mainAdmin {
+  margin-top: 90px !important;
+  width: 100% !important;
+}
+
+.pagination {
+  text-align: center !important;
+  color: #212529;
+  width: 100%;
+  height: auto;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.pagination a {
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  padding: 10px;
+  border: 1px solid #212529;
+  text-decoration: none;
+  color: #212529;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 75px;
+  height: 75px;
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+  box-shadow: 0px 0px 5px 0px #212529;
+}
+
+.pagination a:hover {
+  background-color: #212529;
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.pagination .active a {
+  background-color: #212529;
+  color: #007BFF;
+  text-decoration: none;
+}

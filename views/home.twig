@@ -1,0 +1,22 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        {% for movie in now_playing.results %}
+            {% include 'templates/hoverCard.twig' %}
+        {% endfor %}
+    </div>
+
+    <div class="row">
+        <div class="col-12 text-center">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 text-center" id="debug">
+        </div>
+    </div>
+
+{% endblock %}

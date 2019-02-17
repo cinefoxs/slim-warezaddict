@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>WarezAddict.com - Torrent Search Engine</title>
+
+    <link rel="icon" href="{{ baseUrl }}/favicon.ico">
+    <link rel="apple-touch-icon" href="{{ baseUrl }}/images/apple-touch-icon.png">
+
+    <meta name="description" content="Torrent Search Engine Movie Database">
+    <meta name="author" content="WarezAddict-com">
+    <meta name="keywords" content="warezaddict, torrent, search, moviedb, imdb, tmdb, api">
+
+    <meta name="robots" content="index, follow">
+    <meta name="revisit-after" content="2 days">
+    <meta name="googlebot" content="nosnippet">
+    <meta http-equiv="Cache-control" content="public">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+  </head>
+  <body>
+
+    {% include 'templates/partials/navigation.twig' %}
+
+    <div class="container-fluid" id="wrap">
+      <div class="container" id="mainBody">
+
+        {% include 'templates/partials/flash.twig' %}
+
+        {% block content %}
+        {% endblock %}
+
+      </div>
+    </div>
+
+    {% include 'templates/partials/footer.twig' %}
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="{{ baseUrl }}/css/app.css">
+    <script src="{{ baseUrl }}/js/app.js"></script>
+
+  </body>
+</html>
