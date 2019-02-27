@@ -1,38 +1,38 @@
 <?php
 
+// Namespace
 namespace App\Auth;
 
-use App\Models\User;
+// Use Libs
+use \App\Models\User;
 
 /**
- * Class Auth
- *
- * @package App\Auth
+ * Auth Class
  */
 class Auth
 {
 
-    /**
-     * @return mixed
-     */
     public function user()
     {
-        return User::find(isset($_SESSION['user']) ? $_SESSION['user'] : '');
+        return User::find($_SESSION['user']);
     }
 
-    /**
-     * @return bool
-     */
+    public function allUsers()
+    {
+        return User::all();
+    }
+
+    public function updateLoginTime()
+    {
+        $user = User::find($_SESSION['user']);
+        $user->updateLastTime();
+    }
+
     public function check()
     {
         return isset($_SESSION['user']);
     }
 
-    /**
-     * @param $email
-     * @param $password
-     * @return bool
-     */
     public function attempt($email, $password)
     {
         $user = User::where('email', $email)->first();
@@ -45,18 +45,36 @@ class Auth
             $_SESSION['user'] = $user->id;
             return true;
         }
-
         return false;
-    }
-
-    public function updatedAt()
-    {
-        $user = \App\Models\User::find($_SESSION['user']);
-        $user->updateLastTime();
     }
 
     public function logout()
     {
         unset($_SESSION['user']);
+    }
+
+    public function verifyAdmin($email, $password)
+    {
+        $user = User::where('email', $email)->first();
+        if (!$user) {
+            return false;
+        }
+
+        if ($user->is_admin === "1" && password_verify($password, $user->password)) {
+            $_SESSION['user'] = $user->id;
+            return true;
+        }
+        return false;
+    }
+
+    public function checkAdmin()
+    {
+        if (isset($_SESSION['user'])) {
+            $user = User::find($_SESSION['user']);
+            if ($user->is_admin === "1") {
+                return true;
+            }
+        }
+        return false;
     }
 }

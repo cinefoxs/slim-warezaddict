@@ -33,7 +33,7 @@ class Controller
 
         // Analytics Log Message
         $log = $this->logger;
-        $logData = \WarezAddict\Tools\Info::userInfo();
+        $logData = \WarezAddict\Info::userInfo();
         $log->info('ANALYTICS', $logData);
 
         // Check If User Logged In

@@ -1,0 +1,72 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="{{ path_for('home') }}">WarezAddict</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle Navigation">
+      <!-- span class="navbar-toggler-icon"></span -->
+      <span class="fas fa-2x fa-theater-masks"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="moviesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Movies</a>
+          <div class="dropdown-menu" aria-labelledby="moviesDropdown">
+            <a class="dropdown-item" href="{{ path_for('home') }}">Now Playing In Theaters</a>
+            <a class="dropdown-item" href="#">New/Upcoming Movies</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">See All Movie Categories!</a>
+            <a class="dropdown-item" href="#">Action</a>
+            <a class="dropdown-item" href="#">Animation</a>
+            <a class="dropdown-item" href="#">Comedy</a>
+            <a class="dropdown-item" href="#">Drama</a>
+            <a class="dropdown-item" href="#">Romance</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="tvDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">TV</a>
+          <div class="dropdown-menu" aria-labelledby="tvDropdown">
+            <a class="dropdown-item" href="#">Shows Airing Today</a>
+            <a class="dropdown-item" href="#">New/Upcoming Shows</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">See All TV Categories!</a>
+            <a class="dropdown-item" href="#">Comedy</a>
+            <a class="dropdown-item" href="#">Reality</a>
+            <a class="dropdown-item" href="#">Talk</a>
+          </div>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="topDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Most Popular</a>
+          <div class="dropdown-menu" aria-labelledby="topDropdown">
+            <a class="dropdown-item" href="#">Today's Most Popular Movies</a>
+            <a class="dropdown-item" href="#">Best TV Shows In 2019</a>
+            <a class="dropdown-item" href="#">Top 10 Comedy Movies</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#">Create Your Own List!</a>
+          </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        {% if auth.check %}
+        <li class="nav-item gravatar-nav">
+          {{ auth.user.gravatar(auth.user.email, 32) | raw }}
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">{{auth.user.name}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path_for('auth.password.change') }}">Settings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path_for('auth.signout') }}">Sign Out</a>
+        </li>
+        {% else %}
+        <li class="nav-link">
+          <a class="nav-link text-primary" href="{{ path_for('auth.signup') }}">Register</a>
+        </li>
+        <li class="nav-link">
+          <a class="nav-link text-primary" href="{{ path_for('auth.signin') }}">Login</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

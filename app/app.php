@@ -56,7 +56,7 @@ $container['logger'] = function ($container) {
 };
 
 // Flash Messages
-$container['flash'] = function ($container) {
+$container['flash'] = function () {
     return new \Slim\Flash\Messages;
 };
 
@@ -84,9 +84,10 @@ $container['view'] = function ($container) {
         'check' => $container->auth->check(),
         'user' => $container->auth->user()
     ]);
+    $view->addExtension(new \Knlv\Slim\Views\TwigMessages($container->flash));
     $view->getEnvironment()->addGlobal('flash', $container->flash);
     $view->getEnvironment()->addGlobal('baseUrl', $container['request']->getUri()->getBaseUrl());
-    $view->getEnvironment()->addGlobal('TmdbImage', 'http://image.tmdb.org/t/p/w185');
+    $view->getEnvironment()->addGlobal('TmdbImage', 'http://image.tmdb.org/t/p/w300');
     return $view;
 };
 
@@ -94,7 +95,6 @@ $container['view'] = function ($container) {
 $container['tmdb'] = function ($container) {
     $tmdbKey = getenv('TMDB_KEY');
     $token = new \Tmdb\ApiToken($tmdbKey);
-
     $client = new \Tmdb\Client($token, [
         'cache' => [
             'enabled' => true,
@@ -102,11 +102,9 @@ $container['tmdb'] = function ($container) {
         ],
         'secure' => false,
     ]);
-
-    //$configRepository = new \Tmdb\Repository\ConfigurationRepository($client);
-    //$config = $configRepository->load();
-    //$imageHelper = new \Tmdb\Helper\ImageHelper($config);
-
+    $configRepository = new \Tmdb\Repository\ConfigurationRepository($client);
+    $config = $configRepository->load();
+    $imageHelper = new \Tmdb\Helper\ImageHelper($config);
     $langPlugin = new \Tmdb\HttpClient\Plugin\LanguageFilterPlugin('en-US');
     $adultPlugin = new \Tmdb\HttpClient\Plugin\AdultFilterPlugin(false);
     $client->getHttpClient()->addSubscriber($langPlugin);
@@ -129,8 +127,11 @@ $container['PasswordController'] = function ($container) {
 $container['HomeController'] = function ($container) {
     return new \App\Controllers\HomeController($container);
 };
+$container['SearchController'] = function ($container) {
+    return new \App\Controllers\SearchController($container);
+};
 $container['MovieController'] = function ($container) {
-    return new \App\Controllers\MovieController($container);
+    return new \WarezAddict\MovieDB\MovieController($container);
 };
 
 // CSRF Protection

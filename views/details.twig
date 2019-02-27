@@ -7,7 +7,9 @@
 
       <form class="input-group input-group-lg" action="/search" method="post">
         <input type="search" class="form-control form-control-lg sBox" name="q" value="" placeholder="Search for Movies, TV Shows, Actors, etc..." autocomplete="off" aria-label="Search">
-        {{ csrf.field|raw }}
+        {{ csrf_field()|raw }}
+        {# <input type="hidden" name="{{ turbo.getTokenNameKey }}" value="{{ turbo.getTokenName }}"> #}
+        {# <input type="hidden" name="{{ turbo.getTokenValueKey }}" value="{{ turbo.getTokenValue }}"> #}
         <span class="input-group-addon">
           <button class="btn btn-primary btn-lg" type="submit">
             <i class="fa fa-search"></i>
@@ -19,17 +21,14 @@
   </div>
 
   <div class="row">
-
-    {# dump() #}
-    {# for val in results|sortbyfield('release_date', 'desc') #}
-
-      {% for val in results %}
-        {# include 'templates/partials/hoverCard.twig' #}
-      {% endfor %}
-
+    <div class="col-12 text-center">
+      <h2>{{ results.originalTitle }} ({{ results.releaseDate|date('Y') }})</h2>
+    </div>
   </div>
 
-  {# include 'templates/partials/pager.twig' #}
-  {# pagination|raw #}
+  <div class="row">
+    <div class="col-12 text-center">
+    </div>
+  </div>
 
 {% endblock %}

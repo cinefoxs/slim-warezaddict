@@ -19,12 +19,11 @@ class User extends Model
      */
     protected $table = 'users';
 
-    public $name;
-    public $email;
-    public $created_at;
-    public $updated_at;
-    public $is_admin;
-    public $avatar_url;
+    protected $name;
+    protected $email;
+    protected $created_at;
+    protected $updated_at;
+    protected $avatar_url;
 
     /**
      * @var array
@@ -33,10 +32,9 @@ class User extends Model
         'name',
         'email',
         'password',
+        'avatar_url',
         'created_at',
         'updated_at',
-        'is_admin',
-        'avatar_url',
     ];
 
     /**
@@ -49,11 +47,10 @@ class User extends Model
         ]);
     }
 
-    public function setAdmin()
+    public function setName($name)
     {
-        $this->update([
-            'is_admin' => "1",
-        ]);
+        $clean = trim($name);
+        $this->update(['name' => $clean]);
     }
 
     public function getUserId()
@@ -64,11 +61,6 @@ class User extends Model
     public function getAll()
     {
         return $this->all();
-    }
-
-    public function setName($name)
-    {
-        $this->name = trim($name);
     }
 
     public function getName()

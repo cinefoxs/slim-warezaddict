@@ -1,7 +1,7 @@
 <?php
 
 // Namespace
-namespace WarezAddict\Tools;
+namespace WarezAddict;
 
 /**
  * Time Class

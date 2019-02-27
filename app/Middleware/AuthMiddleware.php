@@ -7,7 +7,7 @@ namespace App\Middleware;
  *
  * @package App\Middleware
  */
-class AuthMiddleware extends Middleware
+class AuthMiddleware extends \App\Middleware\Middleware
 {
 
     /**

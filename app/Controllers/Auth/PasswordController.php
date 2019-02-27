@@ -3,36 +3,22 @@
 namespace App\Controllers\Auth;
 
 use App\Controllers\Controller;
+use App\Models\User;
 use Respect\Validation\Validator as v;
-use Slim\Http\Request;
-use Slim\Http\Response;
 
-/**
- * Class PasswordController
- *
- * @package App\Controllers\Auth
- */
 class PasswordController extends Controller
 {
-    /**
-     * @param Response $response
-     * @return \Psr\Http\Message\ResponseInterface
-     */
-    public function getChangePassword(Response $response)
+
+    public function getChangePassword($request, $response)
     {
-        return $this->view->render($response, 'auth/password/change.twig');
+        return $this->view->render($response, 'auth/change.twig');
     }
 
-    /**
-     * @param Request  $request
-     * @param Response $response
-     * @return Response
-     */
-    public function postChangePassword(Request $request, Response $response)
+    public function postChangePassword($request, $response)
     {
         $validation = $this->validator->validate($request, [
             'password_old' => v::noWhitespace()->notEmpty()->matchesPassword($this->auth->user()->password),
-            'password'     => v::noWhitespace()->notEmpty(),
+            'password' => v::noWhitespace()->notEmpty(),
         ]);
 
         if ($validation->failed()) {
@@ -40,8 +26,7 @@ class PasswordController extends Controller
         }
 
         $this->auth->user()->setPassword($request->getParam('password'));
-
-        $this->flash->addMessage('info', 'Your password was changed');
+        $this->flash->addMessage('info', 'Your password was sucessfully changed');
 
         return $response->withRedirect($this->router->pathFor('home'));
     }

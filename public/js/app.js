@@ -32,3 +32,20 @@ function rateIt(id, rating, user_id) {
   // Return rating in bootstrap badge
   $('#badge_' + id).html('999');
 }
+
+// Search
+function do_search() {
+  var search_term = $("#search_term").val();
+  $.ajax({
+    type: 'post',
+    url: 'get_results.php',
+    data: {
+      search: "search",
+      search_term: search_term
+    },
+    success: function(response) {
+      document.getElementById("result_div").innerHTML = response;
+    }
+  });
+  return false;
+}

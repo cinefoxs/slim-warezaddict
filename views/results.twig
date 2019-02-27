@@ -1,0 +1,33 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+  <div class="row text-center">
+    <div class="col-12 mb-4 mt-2 text-center" id="searchBox">
+
+      <form class="input-group input-group-lg" action="/search" method="post">
+        <input type="search" class="form-control form-control-lg" name="q" value="" placeholder="Search for Movies, TV Shows, Actors, etc..." autocomplete="off" aria-label="Search">
+        {{ csrf_field()|raw }}
+        {# <input type="hidden" name="{{ turbo.getTokenNameKey }}" value="{{ turbo.getTokenName }}"> #}
+        {# <input type="hidden" name="{{ turbo.getTokenValueKey }}" value="{{ turbo.getTokenValue }}"> #}
+        <span class="input-group-addon">
+          <button class="btn btn-primary btn-lg" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
+        </span>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="row">
+
+    {% for val in results %}
+      {% include 'templates/partials/hoverCard.twig' %}
+    {% endfor %}
+
+    {# pagination|raw #}
+
+  </div>
+
+{% endblock %}

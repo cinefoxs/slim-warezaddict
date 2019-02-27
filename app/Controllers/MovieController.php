@@ -8,44 +8,36 @@ use \App\Controllers\Controller;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 
-/**
- * Class MovieController
- *
- * @package App\Controllers
- */
 class MovieController extends \App\Controllers\Controller
 {
-    public function main(Request $request, Response $response)
+
+    public function getDetails(Request $request, Response $response, array $args)
     {
-        // Get Page Number
-        $pageAttrib = $request->getAttribute('page');
+        $movieID = $request->getAttribute('id');
 
-        if ($pageAttrib >= 2 && $pageAttrib <= 99) {
-            $page = (int) $pageAttrib;
-        } else {
-            $page = 1;
-        }
+        $client = $this->tmdb;
+        $repo = new \Tmdb\Repository\MovieRepository($client);
+        $mData = $repo->load($movieID);
+        //dump($mData);
 
-        // TMDB API Client
-        $tmdb = $this->tmdb;
-        $query = new \Tmdb\Model\Query\Discover\DiscoverMoviesQuery();
+        $data = [
+            'movieID' => $movieID,
+            'results' => $mData,
+        ];
 
-        $query
-        ->page($page)
-        ->language('en-US')
-        ->includeAdult($allow = false)
-        ->primaryReleaseDateLte('2019-02-01')
-        ->primaryReleaseDateGte('2018-11-01')
-        ->includeVideo($allow = true)
-        ->sortBy($option = 'popularity.desc');
+        return $this->container->view->render($response, 'details.twig', $data);
+    }
 
-        $repo = new \Tmdb\Repository\DiscoverRepository($tmdb);
-        $movData = $repo->discoverMovies($query);
-        dump($movData);
+    public function topRated(Request $request, Response $response, array $args)
+    {
+        $pageNum = $request->getAttribute('pageNum');
 
-        return $this->view->render($response, 'home.twig', [
-            'current_page' => $page,
-            'results' => $movData,
-        ]);
+        $client = $this->tmdb;
+        $repo = new \Tmdb\Repository\MovieRepository($client);
+
+        $topRated = $repo->getTopRated(array('page' => $pageNum));
+        //$popular = $repo->getPopular();
+
+        return $this->container->view->render($response, 'details.twig', $topRated);
     }
 }

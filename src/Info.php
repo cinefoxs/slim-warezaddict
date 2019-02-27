@@ -1,7 +1,7 @@
 <?php
 
 // Namespace
-namespace WarezAddict\Tools;
+namespace WarezAddict;
 
 /**
  * Info Class
@@ -11,7 +11,6 @@ namespace WarezAddict\Tools;
  */
 class Info
 {
-
     /**
      * Get Browser Info
      *

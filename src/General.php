@@ -1,7 +1,7 @@
 <?php
 
 // Namespace
-namespace WarezAddict\Tools;
+namespace WarezAddict;
 
 // Utilz Class
 class General
@@ -171,8 +171,12 @@ class General
         return $newTimestamp;
     }
 
-    private function getCsv($dir = dirname(__DIR__, 2) . '/data/')
+    private function getCsv($dir)
     {
+        if (!isset($dir)) {
+            $dir = dirname(__DIR__, 2) . '/data/';
+        }
+
         $files = [];
         $dh = opendir($dir);
         if ($dh === false) {

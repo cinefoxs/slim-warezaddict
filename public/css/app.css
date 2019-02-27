@@ -98,8 +98,25 @@ div.alert.in.fade.alert-danger {
   opacity: 100 !important;
 }
 
-.hoverCard {
-  box-shadow: 0px 0px 2px 0px #222222;
+.hCard {
+  width: 300px !important;
+  min-width: 300px !important;
+  max-width: 300px !important;
+  margin: 15px !important;
+  padding: 8px !important;
+  border-radius: 10px !important;
+  box-shadow: 0px 0px 15px 0px #222222;
+}
+
+.poster {
+  border-radius: 10px !important;
+}
+
+#cardRows {
+  width: 100% !important;
+  margin: auto !important;
+  text-align: center !important;
+  background-color: #FF0000;
 }
 
 /** Footer **/
