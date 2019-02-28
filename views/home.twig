@@ -4,32 +4,30 @@
 
   <div class="row text-center">
     <div class="col-12 mb-4 mt-2 text-center" id="searchBox">
-
-      <form class="input-group input-group-lg" action="/search" method="post">
-        <input type="search" class="form-control form-control-lg sBox" name="q" value="" placeholder="Search for Movies, TV Shows, Actors, etc..." autocomplete="off" aria-label="Search">
-        {{ csrf.field|raw }}
-        <span class="input-group-addon">
-          <button class="btn btn-primary btn-lg" type="submit">
-            <i class="fa fa-search"></i>
-          </button>
-        </span>
-      </form>
-
+      {# SEARCH BOX #}
+      {% include 'templates/partials/searchBox.twig' %}
     </div>
   </div>
 
   <div class="row">
-
-    {# dump() #}
-    {# for val in results|sortbyfield('release_date', 'desc') #}
-
-      {% for val in results %}
-        {# include 'templates/partials/hoverCard.twig' #}
-      {% endfor %}
-
+    {# RESULTS TMDB #}
+    {% for val in results %}
+      {% include 'templates/partials/hoverCard.twig' %}
+    {% endfor %}
   </div>
 
-  {# include 'templates/partials/pager.twig' #}
-  {# pagination|raw #}
+  <div class="row">
+    <div class="col-12 text-center" id="pagination">
+      {# PAGINATION #}
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 text-center" id="debug">
+      {% if debugMode %}
+        {{ dump() }}
+      {% endif %}
+    </div>
+  </div>
 
 {% endblock %}

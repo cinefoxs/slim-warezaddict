@@ -2,19 +2,17 @@
 
 namespace App\Middleware;
 
+use \App\Middleware\Middleware;
+
 /**
- * Class GuestMiddleware
+ * GuestMiddleware Class
  *
  * @package App\Middleware
+ *
  */
-class GuestMiddleware extends Middleware
+class GuestMiddleware extends \App\Middleware\Middleware
 {
-    /**
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param                     $next
-     * @return mixed
-     */
+
     public function __invoke($request, $response, $next)
     {
         if ($this->container->auth->check()) {
@@ -22,7 +20,6 @@ class GuestMiddleware extends Middleware
         }
 
         $response = $next($request, $response);
-
         return $response;
     }
 }

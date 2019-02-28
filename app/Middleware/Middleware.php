@@ -1,26 +1,34 @@
 <?php
 
+// Namespace
 namespace App\Middleware;
 
+// Use Libs
+// use \Example\Test;
+
 /**
- * Class Middleware
+ * Middleware
  *
  * @package App\Middleware
+ *
  */
 class Middleware
 {
     /**
      * @var
+     *
      */
     protected $container;
 
     /**
-     * Middleware constructor.
+     * Middleware Constructor
      *
      * @param $container
+     *
      */
     public function __construct($container)
     {
+        // Container
         $this->container = $container;
     }
 }

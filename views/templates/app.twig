@@ -5,22 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>WarezAddict.com Movie Database</title>
+    <title>WarezAddict.com Movie Database Torrent Search Engine</title>
 
-    <link rel="icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="/images/favicon.ico">
+    <link rel="icon" href="{{ baseUrl }}/favicon.ico">
+    <link rel="apple-touch-icon" href="{{ baseUrl }}/images/apple-touch-icon.png">
 
     <meta name="robots" content="index, follow">
     <meta name="revisit-after" content="2 days">
     <meta name="googlebot" content="nosnippet">
 
-    <meta name="description" content="WarezAddict MovieDB">
+    <meta name="description" content="WarezAddict Movie Database Torrent Search Engine">
     <meta name="keywords" content="movie, tv, show, episode, imdb, moviedb, torrent, crawler, warez">
     <meta name="language" content="English">
     <meta name="rating" content="safe for kids">
     <meta name="copyright" content="WarezAddict.com">
     <meta name="author" content="h22turbo">
-
     <meta http-equiv="Cache-control" content="public">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -28,31 +27,31 @@
   </head>
   <body>
 
+    {# NAVBAR #}
     {% include 'templates/partials/nav.twig' %}
 
     <div class="container-fluid" id="wrapper">
       <div class="container text-center" id="mainBody">
 
+        {# FLASH MESSAGES #}
         {% include 'templates/partials/flash.twig' %}
 
+        {# MAIN INDEX/HOME CONTENT #}
         {% block content %}{% endblock %}
 
       </div>
     </div>
 
+    {# FOOTER #}
     {% include 'templates/partials/footer.twig' %}
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"></script>
-
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/holder/2.9.4/holder.min.js" integrity="sha256-ifihHN6L/pNU1ZQikrAb7CnyMBvisKG3SUAab0F3kVU=" crossorigin="anonymous"></script>
-
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-
     <link rel="stylesheet" href="{{ baseUrl }}/css/app.css">
-    <!-- link rel="stylesheet" href="{{ baseUrl }}/css/hoverCard.css" -->
+    <link rel="stylesheet" href="{{ baseUrl }}/css/hoverCard.css">
     <script src="{{ baseUrl }}/js/app.js"></script>
 
   </body>

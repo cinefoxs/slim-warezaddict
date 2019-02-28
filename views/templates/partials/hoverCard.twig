@@ -2,58 +2,64 @@
 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-3">
   <div class="box16">
 
+    {# POSTER IMAGE #}
     {% if val.poster_path %}
-      <img src="https://image.tmdb.org/t/p/w300{{ val.poster_path }}" alt="Image">
+      <img class="img-fluid" src="https://image.tmdb.org/t/p/w300{{ val.poster_path }}" alt="Image">
     {% else %}
-      <img data-src="holder.js/300x450/?random=yes&text=No Image" alt="Image">
+      <img class="img-fluid" data-src="holder.js/300x450/?random=yes&text=No Image Found!" width="300" height="450" alt="Image">
     {% endif %}
 
     <div class="box-content">
 
-      {% if val.title %}
+      {# NAME AND RELEASE YEAR #}
+      {% if val.title and val.release_date %}
         <h4 class="title">{{ val.title }} ({{ val.release_date|date('Y') }})</h4>
-      {% elseif val.original_title %}
+      {% elseif val.original_title and val.release_date %}
         <h4 class="title">{{ val.original_title }} ({{ val.release_date|date('Y') }})</h4>
       {% else %}
-        <h4 class="title">Unknown Name - ({{ val.release_date|date('Y') }})</h4>
+        <h4 class="title">Unknown</h4>
       {% endif %}
 
-      {# if val.genre_ids %}
-        <p class="vote">Genres: 
-          <span id="genreIds">
-            {% for genres in val.genre_ids %}
-              {{ genres }}
-            {% endfor %}
-          </span>
-        </p> 
-      {% else %}
-        <p class="vote">Genres: Unknown</p>
-      {% endif #}
+      {# MOVIE/SHOW ID #}
+      {% if val.id %}
+        <ul class="social">
+          <li>
+            <a href="#" class="rating tDown" onClick="console.log('Thumbs Down Clicked!');">
+              <i class="fas fa-thumbs-down mt-2"><p class="smallThumbs">-1</p></i>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="rating tUp" onClick="console.log('Thumbs Up Clicked!');">
+              <i class="fas fa-thumbs-up mt-2"><p class="smallThumbs">+1</p></i>
+            </a>
+          </li>
+        </ul>
+      {% endif %}
 
-      {# <p class="vote">IMDB Rating: {{ val.vote_average }} / 10 Stars</p> #}
+      {% if val.popularity %}
+        {# BADGE FOR AVG RATING - Maybe Star Rating System? #}
+        <span class="avgRate summary">Avg Rating: </span><span class="summary badge badge-default waBadge" id="badge_{{ val.id }}"> {{ val.vote_average }}</span>
+      {% endif %}
 
-      <ul class="social">
-        <li>
-          <a href="#" class="rating tDown" onClick="rateIt({{ val.id }}, 1, 1);">
-            <i class="fas fa-thumbs-down"></i>
-          </a>
-        </li>
-        <li>
-          <a href="#" class="rating tUp" onClick="rateIt({{ val.id }}, 2, 1);">
-            <i class="fas fa-thumbs-up"></i>
-          </a>
-        </li>
-      </ul>
-
-      <span class="vote badge badge-light" id="badge_{{ val.id }}"></span>
-
+      {# OVERVIEW / PLOT #}
       {% if val.overview %}
-        <p class="summary mt-3">{{ val.overview|truncate(100, true, '...') }}</p>
+        <p class="summary mt-3">{{ val.overview|truncate(150, true, '...') }}</p>
       {% else %}
-        <p class="summary mt-3">No plot available...</p>
+        <p class="summary mt-3">Sorry, no info available!</p>
       {% endif %}
 
-      <a href="/movie/{{ val.id }}" id="{{ val.id }}" class="btn btn-primary"><b>Read More</b></a>
+      {# READ MORE #}
+      {% if val.title %}
+        {% set name = val.title|slugify %}
+        <a href="/movie/{{ name }}" id="{{ val.id }}" class="btn btn-primary"><b>Read More</b></a>
+
+      {% elseif val.original_title %}
+        {% set name = val.original_title|slugify %}
+        <a href="/movie/{{ name }}" id="{{ val.id }}" class="btn btn-primary"><b>Read More</b></a>
+
+      {% else %}
+        <a href="#" class="btn btn-primary disabled"><b>No Info!</b></a>
+      {% endif %}
 
     </div>
 

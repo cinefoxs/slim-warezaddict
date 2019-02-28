@@ -1,51 +1,26 @@
 $(document).ready(function() {
 
-  // Temp Console Message
-  console.log('Everything loaded And ready!');
+  // Console Message (Remove Me!)
+  console.log('Everything Loaded And Ready!!!');
 
-  // Navbar Active Class Toggle
-  $('.nav-link').click(function() {
+  // Toggle Active Class On Navbar (TODO: Fix this!)
+  $('.nav-link').on('click', function(e) {
     $(this).toggleClass('active');
   });
 
-  // Disable <a href="#"> Links
-  $('a[href="#"]').click(function(e) {
+  // Smooth Scroll Back To Top
+  $('#scroll').on('click', function(e) {
+    $("html, body").animate({
+      scrollTop: 0,
+    }, 300, 'linear');
     e.preventDefault();
     e.stopPropagation();
-  });
-
-  // Rating
-  $('.rating').click(function(e) {
-    e.stopPropagation();
-  });
-
-  // Smooth Scroll Back To Top
-  $('#scroll').click(function () {
-    $("html, body").animate({ scrollTop: 0 }, 600);
     return false;
   });
 
-}) /** END document.ready function **/
-
-// rateIt Function
-function rateIt(id, rating, user_id) {
-  // Return rating in bootstrap badge
-  $('#badge_' + id).html('999');
-}
-
-// Search
-function do_search() {
-  var search_term = $("#search_term").val();
-  $.ajax({
-    type: 'post',
-    url: 'get_results.php',
-    data: {
-      search: "search",
-      search_term: search_term
-    },
-    success: function(response) {
-      document.getElementById("result_div").innerHTML = response;
-    }
+  // Disable a href="#" Links
+  $('a[href="#"]').on('click', function(e) {
+    e.preventDefault();
   });
-  return false;
-}
+
+});

@@ -2,25 +2,28 @@
 
 namespace App\Validation\Rules;
 
-use Respect\Validation\Rules\AbstractRule;
+use \Respect\Validation\Rules\AbstractRule;
 
 /**
- * Class MatchesPassword
+ * MatchesPassword
  *
  * @package App\Validation\Rules
+ *
  */
 class MatchesPassword extends AbstractRule
 {
 
     /**
-     * @var
+     * @var string
+     *
      */
     protected $password;
 
     /**
-     * MatchesPassword constructor.
+     * MatchesPassword Constructor
      *
-     * @param $password
+     * @param $password string
+     *
      */
     public function __construct($password)
     {
@@ -28,8 +31,11 @@ class MatchesPassword extends AbstractRule
     }
 
     /**
-     * @param $input
+     * validate
+     *
+     * @param $input string - Password to validate
      * @return bool
+     *
      */
     public function validate($input)
     {

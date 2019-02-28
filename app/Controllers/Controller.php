@@ -7,11 +7,11 @@ namespace App\Controllers;
 use \Psr\Container\ContainerInterface;
 
 /**
- * Class Controller
+ * Controller Class
  *
  * @package App\Controllers
  *
- */
+*/
 class Controller
 {
 
@@ -32,13 +32,19 @@ class Controller
         $this->container = $container;
 
         // Analytics Log Message
-        $log = $this->logger;
         $logData = \WarezAddict\Info::userInfo();
-        $log->info('ANALYTICS', $logData);
+        $this->logger->info('ANALYTICS', $logData);
 
         // Check If User Logged In
         if ($this->auth->check()) {
-            // If True, Update Users "Last Seen" Record
+            // Get Username
+            $username = $this->auth->user();
+
+            // Log It
+            $logs = array_merge($logData, $username);
+            $this->logger->info('UPDATED USERS LAST SEEN TIME', $logs);
+
+            // Update Last Seen Time
             $this->auth->updatedAt();
         }
     }

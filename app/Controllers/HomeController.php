@@ -7,24 +7,23 @@ namespace App\Controllers;
 use \App\Controllers\Controller;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
-use \App\Models\Vote;
+use \App\Models\Favs;
 
 /**
- * Class HomeController
+ * HomeController Class
  *
  * @package App\Controllers
+ *
  */
 class HomeController extends \App\Controllers\Controller
 {
+
     public function index(Request $request, Response $response, array $args)
     {
-        // Auth Check
-        if ($this->auth->check()) {
-            $this->auth->user()->updateLastTime();
-        }
 
-        // Get Page Number
+        // Page Number
         $pageAttrib = $request->getAttribute('page');
+
         if (filter_var($pageAttrib, FILTER_VALIDATE_INT) && $pageAttrib >= 2 && $pageAttrib <= 99) {
             $page = $pageAttrib;
         } else {
@@ -43,40 +42,53 @@ class HomeController extends \App\Controllers\Controller
             'language' => 'en'
         ]);
 
+        // Debug Mode
+        if ($request->getAttribute('debug') == 'yes') {
+            // Debug Mode Enabled
+            $debugMode = true;
+            // Flash Msg
+            $this->flash->addMessageNow('success', 'Debug Mode Enabled!');
+        } else {
+            $debugMode = false;
+        }
+
+        // Data For Twig
+        $data = [
+            'debugMode' => $debugMode,
+            'current_page' => $page,
+            'total_pages' => $nowPlaying['total_pages'],
+            'total_results' => $nowPlaying['total_results'],
+            'results' => $nowPlaying['results'],
+        ];
+
+        // Render View
+        return $this->view->render($response, 'home.twig', $data);
+    }
+
+
+/** **************************************************************************************
+    public function someFunc(Request $request, Response $response, array $args = [])
+    {
+        // Debug Mode
         if ($request->getAttribute('debug') == 'yes') {
             $debugMode = true;
         } else {
             $debugMode = false;
         }
 
-        $this->flash->addMessageNow('success', 'Welcome to WarezAddict.com! Enjoy your stay...');
-
-        // Render View
-        return $this->view->render($response, 'home.twig', [
-            'debugMode' => $debugMode,
-            'current_page' => $page,
-            //'now_playing' => $nowPlaying,
-            'now_playing' => '',
-        ]);
-    }
-/**
-    public function someFunc(Request $request, Response $response, array $args = [])
-    {
-        // Page
-        $page = 1;
-
-        // Get Query Params
+        // Get Something
         $input = $request->getAttribute('cat');
-
-        // Clean that shit, ho
-        $category = \TraderInteractive\Filter\Strings::stripTags($input);
+        // Clean It
+        $cat = \WarezAddict\General::sanitize($input);
 
         // Render View
         return $this->view->render($response, 'something.twig', [
-            'current_page' => $page,
-            'category' => $category
+            'category' => $cat,
+            'debugMode' => $debugMode,
         ]);
+
         // Get Dick Sucked...
+        // echo 'Getting Dick Sucked....';
     }
-**/
+****************************************************************************************** **/
 }

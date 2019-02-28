@@ -2,20 +2,17 @@
 
 namespace App\Middleware;
 
+use \App\Middleware\Middleware;
+
 /**
- * Class CsrfViewMiddleware
+ * CsrfViewMiddleware Class
  *
  * @package App\Middleware
+ *
  */
-class CsrfViewMiddleware extends Middleware
+class CsrfViewMiddleware extends \App\Middleware\Middleware
 {
 
-    /**
-     * @param \Slim\Http\Request  $request
-     * @param \Slim\Http\Response $response
-     * @param                     $next
-     * @return mixed
-     */
     public function __invoke($request, $response, $next)
     {
         $this->container->view->getEnvironment()->addGlobal('csrf', [
@@ -26,10 +23,10 @@ class CsrfViewMiddleware extends Middleware
 				 value="' . $this->container->csrf->getTokenValue() . '">
 			',
         ]);
+
         $_SESSION['old'] = $request->getParams();
 
         $response = $next($request, $response);
-
         return $response;
     }
 }

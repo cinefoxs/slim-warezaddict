@@ -2,24 +2,28 @@
 
 namespace App\Validation\Exceptions;
 
-use Respect\Validation\Exceptions\ValidationException;
+use \Respect\Validation\Exceptions\ValidationException;
 
 /**
- * Class EmailAvailableException
+ * EmailAvailableException
  *
  * @package App\Validation\Exceptions
+ *
  */
 class EmailAvailableException extends ValidationException
 {
     /**
+     * Default Template
+     *
      * @var array
+     *
      */
     public static $defaultTemplates = [
         self::MODE_DEFAULT  => [
-            self::STANDARD => '{{name}} is already taken',
+            self::STANDARD => 'Sorry, {{name}} is NOT available!',
         ],
         self::MODE_NEGATIVE => [
-            self::STANDARD => '{{name}} is not already taken',
+            self::STANDARD => '{{name}} is NOT taken!',
         ]
     ];
 }

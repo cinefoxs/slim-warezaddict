@@ -56,6 +56,7 @@ class Auth
     public function verifyAdmin($email, $password)
     {
         $user = User::where('email', $email)->first();
+
         if (!$user) {
             return false;
         }
@@ -71,6 +72,7 @@ class Auth
     {
         if (isset($_SESSION['user'])) {
             $user = User::find($_SESSION['user']);
+
             if ($user->is_admin === "1") {
                 return true;
             }

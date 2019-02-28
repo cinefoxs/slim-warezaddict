@@ -7,9 +7,11 @@ use \App\Middleware\AdminMiddleware;
 $app->group('', function () {
     // main
     $this->get('/', 'HomeController:index')->setName('home');
+    
+    // $this->get('/omdb/search', 'MovieController:OmdbMovieSearch')->setName('OmdbMovieSearch');
 
-    /** /movies **/
-    $this->get('/movie/{id}', 'MovieController:getDetails')->setName('get.movieDetails');
+    // Read More - Detailed Info
+    $this->get('/movie/{name}', 'MovieController:readMore')->setName('readMore');
 
     // Search
     $this->get('/search', 'SearchController:index')->setName('search');

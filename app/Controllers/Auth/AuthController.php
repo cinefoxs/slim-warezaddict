@@ -11,13 +11,7 @@ use \App\Models\User;
 use \Respect\Validation\Validator as v;
 use \Carbon\Carbon;
 
-/**
- * AuthController
- *
- * User Auth Controller
- *
-*/
-class AuthController extends Controller
+class AuthController extends \App\Controllers\Controller
 {
 
     public function getAdminSignIn(Request $request, Response $response)
@@ -39,21 +33,24 @@ class AuthController extends Controller
 
         if (!$authAdmin) {
             $this->logger->info('FAILED ADMIN LOGIN', $logData);
-            $this->flash->addMessage('error', 'Error! Try again later...');
+            $this->flash->addMessageNow('error', 'Error! Try again later...');
+
             return $response->withRedirect($this->router->pathFor('admin.signin'));
         };
 
         $this->logger->info('ADMIN LOGIN', $logData);
+
         return $response->withRedirect($this->router->pathFor('admin.dash'));
     }
 
     public function getAdminDashboard(Request $request, Response $response)
     {
         if ($this->auth->checkAdmin()) {
-            $logpath = APPDIR . '/logs/MovieDB_' . date('m-d-Y') . '.log';
+            $logpath = APP_ROOT . '/logs/';
+            $file = 'MovieDB_' . date('m-d-Y') . '.log';
             $dashData = [
                 'users' => $this->auth->allUsers(),
-                'logs' => file_get_contents($logpath),
+                'logs' => file_get_contents($logpath . $file),
             ];
             return $this->view->render($response, 'admin/dashboard.twig', $dashData);
         };
@@ -82,9 +79,11 @@ class AuthController extends Controller
 
         if (!$auth) {
             $this->logger->info('FAILED AUTH', $logData);
-            $this->flash->addMessage('error', 'Error! Try again later...');
+            $this->flash->addMessageNow('error', 'Error! Try again later...');
+
             return $response->withRedirect($this->router->pathFor('auth.signin'));
         };
+
         $this->logger->info('USER LOGIN', $logData);
         return $response->withRedirect($this->router->pathFor('home'));
     }
@@ -103,7 +102,8 @@ class AuthController extends Controller
         ]);
 
         if ($validation->failed()) {
-            $this->flash->addMessage('error', 'Error! Try again...');
+            $this->flash->addMessageNow('error', 'Error! Try again...');
+
             return $response->withRedirect($this->router->pathFor('auth.signup'));
         }
 
@@ -123,7 +123,8 @@ class AuthController extends Controller
         ];
         $this->logger->info('NEW USER SIGNUP', $logData);
 
-        $this->flash->addMessage('info', 'Success! You have been signed up!');
+        $this->flash->addMessageNow('info', 'Success! You have been signed up!');
+
         $this->auth->attempt($user->email, $request->getParam('password'));
         return $response->withRedirect($this->router->pathFor('home'));
     }

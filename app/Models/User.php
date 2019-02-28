@@ -16,9 +16,14 @@ class User extends Model
 {
     /**
      * @var string
+     *
      */
     protected $table = 'users';
 
+    /**
+     * @var  string
+     *
+     */
     protected $name;
     protected $email;
     protected $created_at;
@@ -27,18 +32,23 @@ class User extends Model
 
     /**
      * @var array
+     *
      */
     protected $fillable = [
         'name',
         'email',
         'password',
         'avatar_url',
+        'is_admin',
         'created_at',
         'updated_at',
     ];
 
     /**
+     * setPassword
+     *
      * @param $password
+     *
      */
     public function setPassword($password)
     {
@@ -70,16 +80,29 @@ class User extends Model
 
     public function gravatar($email = '', $size = '')
     {
-        $default = '/images/default_avatar.jpg';
-        $size = 65;
-        /**
-         *
-         * $email = md5(strtolower(trim($email)));
-         * $gravurl = "http://www.gravatar.com/avatar/" . $email . "?s=" . $size . "&d=identicon&r=PG";
-         * return '<img src="' . $gravurl . '" width="' . $size . '" height="' . $size . '" border="0" alt="Avatar">';
-         *
-         */
-        return '<img src="' . $default . '" width="' . $size . '" height="' . $size . '" border="0" alt="Avatar">';
+        if ($email && $size) {
+            $email = md5(strtolower(trim($email)));
+
+            $gravUrl = "http://www.gravatar.com/avatar/" . $email . "?s=" . $size;
+
+            $this->logger->info('GRAVATAR', [
+                'Message' => 'Gravatar!',
+                'Email' => $email,
+            ]);
+
+            return '<img src="' . $gravUrl . '" border="0" alt="Image">';
+        } else {
+            $email = '';
+            $default = '/images/default_avatar.jpg';
+            $size = 65;
+
+            $this->logger->info('GRAVATAR', [
+                'Message' => 'Gravatar!',
+                'Default' => 'Yes',
+            ]);
+
+            return '<img src="' . $default . '" width="' . $size . '" height="' . $size . '" border="0" alt="Image">';
+        }
     }
 
     public function updateLastTime()

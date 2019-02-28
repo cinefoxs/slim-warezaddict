@@ -2,19 +2,23 @@
 
 namespace App\Validation\Rules;
 
-use App\Models\User;
-use Respect\Validation\Rules\AbstractRule;
+use \App\Models\User;
+use \Respect\Validation\Rules\AbstractRule;
 
 /**
- * Class EmailAvailable
+ * EmailAvailable
  *
  * @package App\Validation\Rules
+ *
  */
 class EmailAvailable extends AbstractRule
 {
     /**
-     * @param $input
+     * validate
+     *
+     * @param $input string - E-mail address to validate
      * @return bool
+     *
      */
     public function validate($input)
     {

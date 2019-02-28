@@ -31,6 +31,14 @@ a:hover {
   opacity: 0.9 !important;
 }
 
+#login {
+  margin: 0 auto !important;
+  width: 45% !important;
+  max-width: 45% !important;
+  height: 385px !important;
+  min-height: 385px !important;
+}
+
 
 /** Navbar **/
 a.navbar-brand {
@@ -75,48 +83,6 @@ input[type=search]:focus {
 
 button[type=submit] {
   box-shadow: 0px 0px 10px 0px #555555 !important;
-}
-
-/** Notifications-Validation **/
-#notify {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-#notify>div {
-  opacity: 100 !important;
-}
-
-.fade:not(.show) {
-  opacity: 100 !important;
-}
-
-div.alert.in.fade.alert-danger {
-  color: #000000 !important;
-  width: 100% !important;
-  height: 100% !important;
-  opacity: 100 !important;
-}
-
-.hCard {
-  width: 300px !important;
-  min-width: 300px !important;
-  max-width: 300px !important;
-  margin: 15px !important;
-  padding: 8px !important;
-  border-radius: 10px !important;
-  box-shadow: 0px 0px 15px 0px #222222;
-}
-
-.poster {
-  border-radius: 10px !important;
-}
-
-#cardRows {
-  width: 100% !important;
-  margin: auto !important;
-  text-align: center !important;
-  background-color: #FF0000;
 }
 
 /** Footer **/

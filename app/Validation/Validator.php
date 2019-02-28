@@ -1,13 +1,16 @@
 <?php
 
+// Namespace
 namespace App\Validation;
 
-use Respect\Validation\Exceptions\NestedValidationException;
+// Use Libs
+use \Respect\Validation\Exceptions\NestedValidationException;
 
 /**
- * Class Validator
+ * Validator
  *
  * @package App\Validation
+ *
  */
 class Validator
 {
@@ -17,9 +20,10 @@ class Validator
     protected $errors;
 
     /**
-     * @param \Slim\Http\Request $request
-     * @param array              $rules
+     * validate
+     *
      * @return $this
+     *
      */
     public function validate($request, array $rules)
     {
@@ -30,14 +34,15 @@ class Validator
                 $this->errors[$field] = $e->getMessages();
             }
         }
-
         $_SESSION['errors'] = $this->errors;
-
         return $this;
     }
 
     /**
+     * failed
+     *
      * @return bool
+     *
      */
     public function failed()
     {

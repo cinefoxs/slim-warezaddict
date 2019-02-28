@@ -2,11 +2,11 @@
 
 namespace App\Controllers\Auth;
 
-use App\Controllers\Controller;
-use App\Models\User;
-use Respect\Validation\Validator as v;
+use \App\Controllers\Controller;
+use \App\Models\User;
+use \Respect\Validation\Validator as v;
 
-class PasswordController extends Controller
+class PasswordController extends \App\Controllers\Controller
 {
 
     public function getChangePassword($request, $response)
@@ -22,12 +22,13 @@ class PasswordController extends Controller
         ]);
 
         if ($validation->failed()) {
+            $this->flash->addMessageNow('error', 'Error! Something went wrong!');
             return $response->withRedirect($this->router->pathFor('auth.password.change'));
         }
 
         $this->auth->user()->setPassword($request->getParam('password'));
-        $this->flash->addMessage('info', 'Your password was sucessfully changed');
 
+        $this->flash->addMessageNow('info', 'Your password was sucessfully changed!');
         return $response->withRedirect($this->router->pathFor('home'));
     }
 }

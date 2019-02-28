@@ -2,8 +2,7 @@
   <div class="container">
     <a class="navbar-brand" href="{{ path_for('home') }}">WarezAddict</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle Navigation">
-      <!-- span class="navbar-toggler-icon"></span -->
-      <span class="fas fa-2x fa-theater-masks"></span>
+      <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav mr-auto">
@@ -47,7 +46,7 @@
       <ul class="navbar-nav ml-auto">
         {% if auth.check %}
         <li class="nav-item gravatar-nav">
-          {{ auth.user.gravatar(auth.user.email, 32) | raw }}
+          {{ auth.user.gravatar(auth.user.email, 32)|raw }}
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">{{auth.user.name}}</a>

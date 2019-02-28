@@ -4,30 +4,36 @@
 
   <div class="row text-center">
     <div class="col-12 mb-4 mt-2 text-center" id="searchBox">
+      {# SEARCH BOX #}
+      {% include 'templates/partials/searchBox.twig' %}
+    </div>
+  </div>
 
-      <form class="input-group input-group-lg" action="/search" method="post">
-        <input type="search" class="form-control form-control-lg" name="q" value="" placeholder="Search for Movies, TV Shows, Actors, etc..." autocomplete="off" aria-label="Search">
-        {{ csrf_field()|raw }}
-        {# <input type="hidden" name="{{ turbo.getTokenNameKey }}" value="{{ turbo.getTokenName }}"> #}
-        {# <input type="hidden" name="{{ turbo.getTokenValueKey }}" value="{{ turbo.getTokenValue }}"> #}
-        <span class="input-group-addon">
-          <button class="btn btn-primary btn-lg" type="submit">
-            <i class="fa fa-search"></i>
-          </button>
-        </span>
-      </form>
+  <div class="row">
+    <div class="col-12 text-center" id="details">
+
+      {% if results.Response %}
+
+        <h3 class="font-weight-bold">{{ results.Title }}<br>({{ results.Year }})</h3>
+
+        <img src="{{ results.Poster }}" class="img-fluid" id="posterImg" alt="Image">
+
+        {% for val in results.Ratings %}
+          <p><b>{{ val.Source }} Rating</b><br>{{ val.Value }}</p>
+        {% endfor %}
+
+      {% endif %}
 
     </div>
   </div>
 
   <div class="row">
-
-    {% for val in results %}
-      {% include 'templates/partials/hoverCard.twig' %}
-    {% endfor %}
-
-    {# pagination|raw #}
-
+    <div class="col-12 text-center" id="debug">
+      {% if debugMode %}
+        {# Detailed Info #}
+        {{ dump(results) }}
+      {% endif %}
+    </div>
   </div>
 
 {% endblock %}

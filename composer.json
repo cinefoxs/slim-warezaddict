@@ -1,24 +1,20 @@
 {
     "name": "warezaddict-com/slim-warezaddict",
-    "description": "WarezAddict.com website powered by Slim PHP framework",
-    "keywords": [
-        "warezaddict",
-        "movies",
-        "torrent",
-        "slim"
-    ],
+    "description": "Movie database search engine website. Powered by Slim PHP Framework",
+    "keywords": ["warezaddict", "warez", "tv", "shows", "torrent", "search", "movies", "moviedb", "imdb", "slim-framework"],
     "homepage": "https://github.com/warezaddict-com/",
     "type": "project",
     "license": "MIT",
     "authors": [
         {
             "name": "Turbo",
-            "email": "none@iHateSpam.biz",
+            "email": "none@nope.biz",
             "homepage": "https://warezaddict.com"
         }
     ],
     "require": {
-        "php": ">=7.0",
+        "php": ">=7.1",
+        "cocur/slugify": "^3.2",
         "funct/funct": "^1.5",
         "illuminate/database": "^5.7",
         "kanellov/slim-twig-flash": "^0.2.0",
@@ -48,11 +44,16 @@
     "prefer-stable": true,
     "config": {
         "process-timeout": 0,
+        "preferred-install": "dist",
         "bin-dir": "bin",
         "optimize-autoloader": true,
         "sort-packages": true
     },
     "scripts": {
-        "opti": "composer -o dumpautoload"
+        "post-root-package-install": ["composer run env"],
+        "post-create-project-cmd": ["composer run env"],
+        "opti": "composer -o dumpautoload",
+        "srv": "php -S 127.0.0.1:7777 -t public/",
+        "env": "cp .env.example .env"
     }
 }

@@ -4,21 +4,27 @@
 
 <div class="row">
   <div class="col-12 text-center">
-    <h1 class="mb-3">Access Denied! Please Login...</h1>
+
+    <h1 class="mb-3">Access Denied!</h1>
+
     <form class="form-signin text-center" action="{{ path_for('admin.signin') }}" method="POST" autocomplete="off">
       <div class="form-group">
+
         <label for="inputEmail" class="sr-only">Email address</label>
         <input id="email" class="form-control {{ errors.email ? 'is-invalid': '' }}" type="email" name="email" placeholder="you@domain.com" value="{{email}}">
         {% if errors.email %}
-        <span class="invalid-feedback">{{ errors.email | first }}</span>
+        <span class="invalid-feedback">{{ errors.email|first }}</span>
         {% endif %}
+
       </div>
       <div class="form-group">
+
         <label for="inputPassword" class="sr-only">Password</label>
         <input id="password" class="form-control" type="password" name="password" placeholder="" aria-describedby="helpId">
         {% if errors.password %}
-        <span class="invalid-feedback">{{ errors.password | first }}</span>
+        <span class="invalid-feedback">{{ errors.password|first }}</span>
         {% endif %}
+
       </div>
       <div class="checkbox mb-3">
         <label>
@@ -26,9 +32,11 @@
           Remember me
         </label>
       </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <p class="mt-5 mb-3 text-muted">© 2017-2018</p>
-      {{ csrf_field()|raw }}
+
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign In</button>
+
+      {{ csrf.field|raw }}
+
     </form>
   </div>
 </div>

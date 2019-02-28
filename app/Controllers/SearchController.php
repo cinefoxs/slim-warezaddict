@@ -28,30 +28,17 @@ class SearchController extends \App\Controllers\Controller
             $searchData = $this->tmdb->getSearchApi()->searchMulti($cleanQuery, ['page' => $page]);
         }
 
-        // Pagination
-        /**
-        $pagination = new \WarezAddict\Pagination();
-        $pagination->setCurrent($page);
-        $pagination->setCrumbs(5);
-        $pagination->alwaysShowPagination();
-        $pagination->setRPP(20);
-        $pagination->setKey('page');
-        $pagination->setTotal($searchData['total_results']);
-        $pager = $pagination->parse();
-
-        $searchResults = [
-            'pagination' => $pager,
-            'currentPage' => $page,
-            'results' => $searchData['results'],
-        ];
-        **/
-
         // Log It
         $query = [
             'query' => $cleanQuery,
         ];
-        $this->logger->warning('SEARCH', $query);
+        $this->logger->info('SEARCH', $query);
 
-        return $this->container->view->render($response, 'results.twig', ['results' => '']);
+        $data = [
+            'page' => $page,
+            'results' => $searchData,
+        ];
+
+        return $this->container->view->render($response, 'results.twig', $data);
     }
 }

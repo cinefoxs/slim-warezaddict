@@ -4,7 +4,10 @@
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 // Use Libs
-use Respect\Validation\Validator as v;
+use \WarezAddict\MovieDB\Omdb;
+use \Respect\Validation\Validator as v;
+use \Cocur\Slugify\Bridge\Twig\SlugifyExtension;
+use \Cocur\Slugify\Slugify;
 
 // Set Timezone
 date_default_timezone_set('America/New_York');
@@ -67,24 +70,29 @@ $container['auth'] = function () {
 
 // View Renderer
 $container['view'] = function ($container) {
+
     $view = new \Slim\Views\Twig(APP_ROOT . '/views', [
         'debug' => true,
         'cache' => false,
         'auto_reload' => true,
         'autoescape' => false,
     ]);
+
     $view->addExtension(new \Slim\Views\TwigExtension(
         $container->router,
         $container->request->getUri()
     ));
     $view->addExtension(new Twig_Extension_Debug());
     $view->addExtension(new Twig_Extensions_Extension_Text());
+    $view->addExtension(new Twig_Extensions_Extension_Array());
+    $view->addExtension(new Twig_Extensions_Extension_Date());
+    $view->addExtension(new \Cocur\Slugify\Bridge\Twig\SlugifyExtension(\Cocur\Slugify\Slugify::create()));
+    $view->addExtension(new \Knlv\Slim\Views\TwigMessages($container->flash));
 
     $view->getEnvironment()->addGlobal('auth', [
         'check' => $container->auth->check(),
         'user' => $container->auth->user()
     ]);
-    $view->addExtension(new \Knlv\Slim\Views\TwigMessages($container->flash));
     $view->getEnvironment()->addGlobal('flash', $container->flash);
     $view->getEnvironment()->addGlobal('baseUrl', $container['request']->getUri()->getBaseUrl());
     $view->getEnvironment()->addGlobal('TmdbImage', 'http://image.tmdb.org/t/p/w300');
@@ -112,6 +120,18 @@ $container['tmdb'] = function ($container) {
     return $client;
 };
 
+$container['omdb'] = function ($container) {
+    $omdb = new \WarezAddict\MovieDB\Omdb([
+        //'type' => '',
+        //'y' => '',
+        'plot' => 'full',
+        'tomatoes' => true,
+        'r' => 'json',
+        'apikey' => getenv('OMDB_KEY'),
+    ], 10, 'm-d-Y');
+    return $omdb;
+};
+
 // Validation
 $container['validator'] = function () {
     return new \App\Validation\Validator;
@@ -131,7 +151,7 @@ $container['SearchController'] = function ($container) {
     return new \App\Controllers\SearchController($container);
 };
 $container['MovieController'] = function ($container) {
-    return new \WarezAddict\MovieDB\MovieController($container);
+    return new \App\Controllers\MovieController($container);
 };
 
 // CSRF Protection
