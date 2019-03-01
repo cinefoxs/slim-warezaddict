@@ -87,11 +87,11 @@ Type `php pass.php` and you will see your new password hash! Copy it. Now, you n
 
 Open `/path/to/slim-warezaddict/database/slim-warezaddict.db` database in your favorite SQLite database editor...
 
-Go to the users table, edit the admin account (first one, with id of 0) and replace the old hash with your new hash. Save and close the DB.
+Go to the users table, edit the admin account (first one, with id of 1) and replace the old hash with your new hash. Save and close the DB.
 
 3) Now, you are the admin and you can login to the admin dashboard using your own password, e-mail address etc!
 
-The Admin Dashboard URL: `http://your-site.com/admin`
+The Admin Dashboard URL: `http://127.0.0.1/admin`
 
 -----
 
