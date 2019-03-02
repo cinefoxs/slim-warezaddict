@@ -84,23 +84,11 @@ class User extends Model
             $email = md5(strtolower(trim($email)));
 
             $gravUrl = "http://www.gravatar.com/avatar/" . $email . "?s=" . $size;
-
-            $this->logger->info('GRAVATAR', [
-                'Message' => 'Gravatar!',
-                'Email' => $email,
-            ]);
-
             return '<img src="' . $gravUrl . '" border="0" alt="Image">';
         } else {
             $email = '';
             $default = '/images/default_avatar.jpg';
             $size = 65;
-
-            $this->logger->info('GRAVATAR', [
-                'Message' => 'Gravatar!',
-                'Default' => 'Yes',
-            ]);
-
             return '<img src="' . $default . '" width="' . $size . '" height="' . $size . '" border="0" alt="Image">';
         }
     }

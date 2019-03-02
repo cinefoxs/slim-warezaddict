@@ -7,7 +7,6 @@ namespace App\Controllers;
 use \App\Controllers\Controller;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \Psr\Http\Message\ServerRequestInterface as Request;
-use \App\Models\Favs;
 
 /**
  * HomeController Class
@@ -22,10 +21,10 @@ class HomeController extends \App\Controllers\Controller
     {
 
         // Page Number
-        $pageAttrib = $request->getAttribute('page');
+        $pageParam = $request->getQueryParam('page');
 
-        if (filter_var($pageAttrib, FILTER_VALIDATE_INT) && $pageAttrib >= 2 && $pageAttrib <= 99) {
-            $page = $pageAttrib;
+        if (filter_var($pageParam, FILTER_VALIDATE_INT) && $pageParam >= 2 && $pageParam <= 99) {
+            $page = $pageParam;
         } else {
             $page = 1;
         }
@@ -43,7 +42,7 @@ class HomeController extends \App\Controllers\Controller
         ]);
 
         // Debug Mode
-        if ($request->getAttribute('debug') == 'yes') {
+        if ($request->getQueryParam('debug') == 'yes') {
             // Debug Mode Enabled
             $debugMode = true;
             // Flash Msg
@@ -64,31 +63,4 @@ class HomeController extends \App\Controllers\Controller
         // Render View
         return $this->view->render($response, 'home.twig', $data);
     }
-
-
-/** **************************************************************************************
-    public function someFunc(Request $request, Response $response, array $args = [])
-    {
-        // Debug Mode
-        if ($request->getAttribute('debug') == 'yes') {
-            $debugMode = true;
-        } else {
-            $debugMode = false;
-        }
-
-        // Get Something
-        $input = $request->getAttribute('cat');
-        // Clean It
-        $cat = \WarezAddict\General::sanitize($input);
-
-        // Render View
-        return $this->view->render($response, 'something.twig', [
-            'category' => $cat,
-            'debugMode' => $debugMode,
-        ]);
-
-        // Get Dick Sucked...
-        // echo 'Getting Dick Sucked....';
-    }
-****************************************************************************************** **/
 }

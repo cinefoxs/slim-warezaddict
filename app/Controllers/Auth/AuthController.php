@@ -31,11 +31,10 @@ class AuthController extends \App\Controllers\Controller
             'password' => $request->getParam('password'),
         ];
 
-        if (!$authAdmin) {
-            $this->logger->info('FAILED ADMIN LOGIN', $logData);
-            $this->flash->addMessageNow('error', 'Error! Try again later...');
-
-            return $response->withRedirect($this->router->pathFor('admin.signin'));
+        if (!isset($authAdmin)) {
+            $this->logger->info('AUTH', ['ERROR' => 'Failed Admin Login']);
+            $this->flash->addMessageNow('info', 'Error! Try again later...');
+            return $response->withRedirect($this->router->pathFor('home'));
         };
 
         $this->logger->info('ADMIN LOGIN', $logData);
@@ -43,32 +42,37 @@ class AuthController extends \App\Controllers\Controller
         return $response->withRedirect($this->router->pathFor('admin.dash'));
     }
 
-    public function getAdminDashboard(Request $request, Response $response)
+    public function getAdminDashboard(Request $request, Response $response, array $args)
     {
         if ($this->auth->checkAdmin()) {
-            $logpath = APP_ROOT . '/logs/';
-            $file = 'MovieDB_' . date('m-d-Y') . '.log';
-            $dashData = [
+
+            $logpath = '/GITHUB/slim-warezaddict/logs/';
+            $file = 'WarezAddict_' . date('m-d-Y') . '.log';
+            $path = $logpath . $file;
+            $logData = file($path);
+            return $this->view->render($response, 'admin/dashboard.twig', [
                 'users' => $this->auth->allUsers(),
-                'logs' => file_get_contents($logpath . $file),
-            ];
-            return $this->view->render($response, 'admin/dashboard.twig', $dashData);
-        };
-        return $response->withRedirect($this->router->pathFor('admin.signin'));
+                'logData' => $logData,
+            ]);
+        } else {
+            return $response->withRedirect($this->router->pathFor('admin.signin'));
+        }
     }
 
     public function getSignOut(Request $request, Response $response)
     {
+        $this->flash->addMessageNow('info', 'You are logged out!');
         $this->auth->logout();
-        return $response->withRedirect($this->router->pathFor('index'));
+        return $response->withRedirect($this->router->pathFor('home'));
     }
 
-    public function getSignIn(Request $request, Response $response)
+    public function getSignIn(Request $request, Response $response, array $args)
     {
+        $this->flash->addMessageNow('info', 'Please login or register an account!');
         return $this->view->render($response, 'auth/signin.twig');
     }
 
-    public function postSignIn(Request $request, Response $response)
+    public function postSignIn(Request $request, Response $response, array $args)
     {
         $auth = $this->auth->attempt($request->getParam('email'), $request->getParam('password'));
 
@@ -77,15 +81,15 @@ class AuthController extends \App\Controllers\Controller
           'password' => $request->getParam('password'),
         ];
 
-        if (!$auth) {
-            $this->logger->info('FAILED AUTH', $logData);
-            $this->flash->addMessageNow('error', 'Error! Try again later...');
-
-            return $response->withRedirect($this->router->pathFor('auth.signin'));
-        };
-
-        $this->logger->info('USER LOGIN', $logData);
-        return $response->withRedirect($this->router->pathFor('home'));
+        if (!isset($auth)) {
+            $this->logger->info('AUTH', ['ERROR' => 'Failed Login']);
+            $this->flash->addMessageNow('info', 'Error! Try again later...');
+            return $response->withRedirect($this->router->pathFor('home'));
+        } else {
+            $this->logger->info('AUTH', $logData);
+            $this->flash->addMessageNow('info', 'Welcome back! You are logged in...');
+            return $response->withRedirect($this->router->pathFor('auth.password.change'));
+        }
     }
 
     public function getSignUp(Request $request, Response $response)
@@ -103,7 +107,6 @@ class AuthController extends \App\Controllers\Controller
 
         if ($validation->failed()) {
             $this->flash->addMessageNow('error', 'Error! Try again...');
-
             return $response->withRedirect($this->router->pathFor('auth.signup'));
         }
 
@@ -121,7 +124,7 @@ class AuthController extends \App\Controllers\Controller
             'name' => $request->getParam('name'),
             'email' => $request->getParam('email'),
         ];
-        $this->logger->info('NEW USER SIGNUP', $logData);
+        $this->logger->info('AUTH', $logData);
 
         $this->flash->addMessageNow('info', 'Success! You have been signed up!');
 

@@ -16,6 +16,7 @@
         "php": ">=7.1",
         "cocur/slugify": "^3.2",
         "funct/funct": "^1.5",
+        "anahkiasen/underscore-php" : "dev-master",
         "illuminate/database": "^5.7",
         "kanellov/slim-twig-flash": "^0.2.0",
         "monolog/monolog": "^1.24",

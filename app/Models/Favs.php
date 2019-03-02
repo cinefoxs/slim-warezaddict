@@ -16,7 +16,7 @@ class Favs extends \Illuminate\Database\Eloquent\Model
      * @var string
      *
      */
-    protected $table = 'favs';
+    protected $table = 'favorites';
 
     /**
      * Fillable

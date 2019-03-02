@@ -41,11 +41,12 @@ class Controller
             $username = $this->auth->user();
 
             // Log It
-            $logs = array_merge($logData, $username);
-            $this->logger->info('UPDATED USERS LAST SEEN TIME', $logs);
+            if ($username) {
+                $this->logger->info('AUTH', ['User' => $username]);
+            }
 
             // Update Last Seen Time
-            $this->auth->updatedAt();
+            $this->auth->updateLoginTime();
         }
     }
 

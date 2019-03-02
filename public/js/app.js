@@ -1,3 +1,14 @@
+/**
+ * Loading Overlay
+ *
+ * $.LoadingOverlay("show");
+ * setTimeout(function() {
+ *   $.LoadingOverlay("hide");
+ * }, 1500);
+ *
+*/
+
+// Doc Ready
 $(document).ready(function() {
 
   // Console Message (Remove Me!)

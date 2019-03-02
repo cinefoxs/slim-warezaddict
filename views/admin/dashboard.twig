@@ -184,20 +184,20 @@
         </div>
       </div>
       <div class="col text-center">
-          <h3>Logs Here!</h3>
-          <h3>Logs Here!</h3>
-          <h3>Logs Here!</h3>
-          <h3>Logs Here!</h3>
-          <h3>Logs Here!</h3>
-          <h3>Logs Here!</h3>
-          <h3>Logs Here!</h3>
-          <h3>Logs Here!</h3>
-          <h3>Logs Here!</h3>
-          <h3>Logs Here!</h3>
+
+          {# logData|truncate(500, true, '...') #}
+          {% for log in logData %}
+            {{ log }}
+          {% endfor %}
+
       </div>
 
     </main>
   </div>
 </div>
+
+{% if debugMode == 'yes' %}
+    {{ dump() }}
+{% endif %}
 
 {% endblock %}

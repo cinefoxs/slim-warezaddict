@@ -37,7 +37,7 @@ class Auth
     {
         $user = User::where('email', $email)->first();
 
-        if (!$user) {
+        if (!isset($user)) {
             return false;
         }
 
@@ -57,7 +57,7 @@ class Auth
     {
         $user = User::where('email', $email)->first();
 
-        if (!$user) {
+        if (!isset($user)) {
             return false;
         }
 
